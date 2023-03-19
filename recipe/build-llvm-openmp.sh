@@ -31,15 +31,14 @@ if [[ "${PKG_VERSION}" == *rc* ]]; then
   export PKG_VERSION=${PKG_VERSION::${#PKG_VERSION}-4}
 fi
 
-cmake -G Ninja \
-    ${CMAKE_ARGS} \
+cmake ${CMAKE_ARGS} \
     -DCMAKE_INSTALL_PREFIX=$PREFIX \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_PREFIX_PATH=$PREFIX \
     ..
 
-cmake --build .
-cmake --install .
+make -j${CPU_COUNT} VERBOSE=1
+make install
 
 rm -f $PREFIX/lib/libgomp$SHLIB_EXT
 
