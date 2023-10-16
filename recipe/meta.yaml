@@ -16,7 +16,7 @@ source:
   folder: llvm-project
 
 build:
-  number: 0
+  number: 1
 
 outputs:
   - name: llvm-openmp
@@ -31,7 +31,7 @@ outputs:
         strong:
           - {{ pin_subpackage("llvm-openmp", max_pin=None) }}
           - _openmp_mutex >={{ openmp_ver }}  # [linux]
-          - _openmp_mutex * *_llvm            # [linux]
+          - _openmp_mutex * *_kmp_*           # [linux]
     requirements:
       build:
         - {{ compiler('cxx') }}
